@@ -21,14 +21,33 @@
       font-family: 'SB Sans Display', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     }
 
+    /* Карточка — теперь с относительным позиционированием для наложения слоёв */
     .player-card {
       width: 360px;
       max-width: 100%;
-      background: #202020;
       position: relative;
       box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.5);
+      /* Высота будет определяться контентом */
     }
 
+    /* Слой с shape.svg — фоновая сложная форма */
+    .shape-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none; /* чтобы клики проходили сквозь фон */
+      z-index: 0;
+    }
+
+    .shape-layer svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Контент поверх фона */
     .content {
       position: relative;
       z-index: 2;
@@ -57,39 +76,21 @@
       display: block;
     }
 
-    /* Центральный блок: подложка shape.svg + логотип с градиентом */
+    /* Центральный блок: подложка shape.svg (уже не нужна, заменили на фон) + логотип с градиентом */
     .center-block {
       position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 20px 0 60px; /* увеличен отступ снизу, чтобы текст/play опустились */
+      margin: 20px 0 80px; /* Увеличил нижний отступ для смещения текста и кнопки вниз */
       min-height: 160px;
     }
 
-    /* Подложка — векторный shape.svg */
-    .shape-bg {
-      position: absolute;
-      width: 148px;
-      height: 148px;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-    }
-
-    .shape-bg img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: contain;
-    }
-
-    /* Контейнер для логотипа с анимированным градиентом */
+    /* Контейнер для логотипа с анимированным градиентом — увеличен на 20% (было 110px → 132px) */
     .b2b-icon {
       position: relative;
       z-index: 2;
-      width: 110px;
+      width: 132px;  /* было 110px, +20% = 132px */
       height: auto;
     }
 
@@ -205,10 +206,10 @@
         max-width: 180px;
       }
       .b2b-icon {
-        width: 90px;
+        width: 110px; /* на маленьких экранах пропорционально меньше */
       }
       .center-block {
-        margin-bottom: 50px;
+        margin-bottom: 60px;
       }
       .register-btn {
         font-size: 14px;
@@ -219,6 +220,13 @@
 </head>
 <body>
 <div class="player-card">
+  <!-- Фоновый слой со сложной формой shape.svg (встроенный SVG) -->
+  <div class="shape-layer">
+    <svg width="360" height="400" viewBox="0 0 360 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M340 0C351.046 5.15406e-06 360 8.95431 360 20V380C360 391.046 351.046 400 340 400H20C8.95431 400 1.61075e-07 391.046 0 380V20C2.5772e-06 8.95431 8.95431 8.05322e-08 20 0H340ZM180.375 24C174.653 24 170.015 28.6387 170.015 34.3604V35H139.5C133.701 35 129 39.701 129 45.5C129 51.299 133.701 56 139.5 56H222.144C226.483 56 230 52.4825 230 48.1436C230 40.8846 224.115 35 216.856 35H190.689C190.717 34.6764 190.735 34.3493 190.735 34.0186V33.625C190.735 28.3094 186.426 24.0002 181.11 24H180.375Z" fill="#202020"/>
+    </svg>
+  </div>
+
   <div class="content">
     <!-- Верхняя строка -->
     <div class="top-row">
@@ -230,13 +238,10 @@
       </div>
     </div>
 
-    <!-- Центральный блок: shape.svg подложка, поверх неё логотип с анимированным градиентом -->
+    <!-- Центральный блок: только логотип с градиентом (подложка shape.svg уже на фоне) -->
     <div class="center-block">
-      <div class="shape-bg">
-        <img src="shape.svg" alt="shape" onerror="this.onerror=null; this.style.display='none'">
-      </div>
       <div class="b2b-icon">
-        <!-- Ваш точный SVG‑логотип (icon b2b.svg) с заменой заливки на анимированный градиент -->
+        <!-- Ваш точный SVG‑логотип (icon b2b.svg) с анимированным градиентом, увеличенный через width -->
         <svg class="b2b-svg" viewBox="0 0 148 148" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="animatedGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -258,7 +263,7 @@
       </div>
     </div>
 
-    <!-- Текст и кнопка Play (ниже) -->
+    <!-- Текст и кнопка Play (опущены ниже за счёт увеличенного margin-bottom у center-block) -->
     <div class="play-row">
       <div class="demo-text">
         Демо-версия плейлиста<br>для вашего бизнеса
