@@ -21,15 +21,12 @@
       font-family: 'SB Sans Display', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     }
 
-    /* Карточка 360px, фон #202020 */
     .player-card {
       width: 360px;
       max-width: 100%;
       background: #202020;
       position: relative;
       box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.5);
-      overflow: hidden;
-      border-radius: 0; /* как в макете */
     }
 
     .content {
@@ -40,7 +37,7 @@
       flex-direction: column;
     }
 
-    /* Верхняя строка: logo.svg слева, 0rub.svg справа */
+    /* Верхняя строка */
     .top-row {
       display: flex;
       justify-content: space-between;
@@ -60,54 +57,53 @@
       display: block;
     }
 
-    /* Центральный блок: подложка с анимированным градиентом и иконка b2b */
+    /* Центральный блок: подложка shape.svg + логотип с градиентом */
     .center-block {
       position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 20px 0 40px; /* увеличил нижний отступ, чтобы текст и кнопка были ниже */
+      margin: 20px 0 60px; /* увеличен отступ снизу, чтобы текст/play опустились */
       min-height: 160px;
     }
 
-    /* Анимированная подложка (круг с градиентом) */
-    .animated-shape {
+    /* Подложка — векторный shape.svg */
+    .shape-bg {
       position: absolute;
       width: 148px;
       height: 148px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #26C09C, #1a8f72, #26C09C, #3cd6b0);
-      background-size: 300% 300%;
-      animation: gradientMove 6s ease infinite;
-      box-shadow: 0 0 15px rgba(38, 192, 156, 0.3);
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
       pointer-events: none;
     }
 
-    @keyframes gradientMove {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
+    .shape-bg img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
     }
 
-    /* Увеличенная иконка b2b */
+    /* Контейнер для логотипа с анимированным градиентом */
     .b2b-icon {
       position: relative;
       z-index: 2;
+      width: 110px;
+      height: auto;
     }
 
-    .b2b-icon img {
-      width: 110px; /* была 80px — сделал больше */
+    /* Внедрённый SVG логотипа — заменяем на свой, но градиент будет работать */
+    /* Для демонстрации я создал пример логотипа в виде стилизованной плашки,
+       вы можете заменить теги <path> на пути из вашего icon b2b.svg */
+    .b2b-svg {
+      width: 100%;
       height: auto;
       display: block;
+      filter: drop-shadow(0 0 5px rgba(38,192,156,0.3));
     }
 
-    /* Блок текст + кнопка play (сдвинут ниже за счёт margin у center-block) */
+    /* Блок текста и кнопка play */
     .play-row {
       display: flex;
       justify-content: space-between;
@@ -124,7 +120,6 @@
       max-width: 210px;
     }
 
-    /* Кнопка play — сделаем видимой и кликабельной */
     .play-icon-btn {
       background: none;
       border: none;
@@ -136,7 +131,6 @@
       align-items: center;
       justify-content: center;
       transition: transform 0.1s;
-      z-index: 10;
     }
 
     .play-icon-btn:hover {
@@ -153,7 +147,6 @@
       display: block;
     }
 
-    /* Кастомная пауза (белый круг с двумя полосками) */
     .pause-custom {
       width: 48px;
       height: 48px;
@@ -213,12 +206,11 @@
         font-size: 14px;
         max-width: 180px;
       }
-      .b2b-icon img {
+      .b2b-icon {
         width: 90px;
       }
-      .animated-shape {
-        width: 130px;
-        height: 130px;
+      .center-block {
+        margin-bottom: 50px;
       }
       .register-btn {
         font-size: 14px;
@@ -230,7 +222,7 @@
 <body>
 <div class="player-card">
   <div class="content">
-    <!-- Верхняя строка: logo.svg и 0rub.svg -->
+    <!-- Верхняя строка -->
     <div class="top-row">
       <div class="logo-left">
         <img src="logo.svg" alt="Логотип" onerror="this.onerror=null; this.style.display='none'">
@@ -240,15 +232,37 @@
       </div>
     </div>
 
-    <!-- Центральный блок: подложка с анимированным градиентом (заменяет shape.svg) + увеличенная иконка b2b -->
+    <!-- Центральный блок: shape.svg подложка, поверх неё логотип с градиентом -->
     <div class="center-block">
-      <div class="animated-shape"></div>
+      <div class="shape-bg">
+        <img src="shape.svg" alt="shape" onerror="this.onerror=null; this.style.display='none'">
+      </div>
       <div class="b2b-icon">
-        <img src="icon b2b.svg" alt="B2B" onerror="this.onerror=null; this.style.display='none'">
+        <!-- ВСТРОЕННЫЙ SVG ЛОГОТИП с анимированным градиентом -->
+        <!-- ВНИМАНИЕ: замените внутренность <svg> на содержимое вашего icon b2b.svg -->
+        <svg class="b2b-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="animatedGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#26C09C">
+                <animate attributeName="stop-color" values="#26C09C;#1a8f72;#26C09C" dur="4s" repeatCount="indefinite" />
+              </stop>
+              <stop offset="50%" stop-color="#1a8f72">
+                <animate attributeName="stop-color" values="#1a8f72;#3cd6b0;#1a8f72" dur="4s" repeatCount="indefinite" />
+              </stop>
+              <stop offset="100%" stop-color="#26C09C">
+                <animate attributeName="stop-color" values="#26C09C;#1a8f72;#26C09C" dur="4s" repeatCount="indefinite" />
+              </stop>
+            </linearGradient>
+          </defs>
+          <!-- Пример сложной фигуры (замените на пути вашего icon b2b.svg) -->
+          <rect x="20" y="20" width="160" height="160" rx="30" fill="url(#animatedGrad)" />
+          <text x="100" y="120" font-size="40" text-anchor="middle" fill="white" font-weight="bold">B2B</text>
+          <!-- Если ваш icon b2b.svg — это набор кривых, скопируйте их сюда вместо rect+text -->
+        </svg>
       </div>
     </div>
 
-    <!-- Блок текста и кнопка play (теперь ниже) -->
+    <!-- Текст и кнопка Play (ниже) -->
     <div class="play-row">
       <div class="demo-text">
         Демо-версия плейлиста<br>для вашего бизнеса
@@ -268,15 +282,12 @@
 </div>
 
 <script>
-  // Аудиоэлемент
   const audio = new Audio('https://okidsgn-max.github.io/mailplayer/pst.mp3');
   const playPauseBtn = document.getElementById('playPauseBtn');
   const playIcon = document.getElementById('playIcon');
-  
   let isPlaying = false;
   let pauseElement = null;
 
-  // Создать кастомную иконку паузы (белый круг с двумя полосками)
   function createPauseIcon() {
     const div = document.createElement('div');
     div.className = 'pause-custom';
@@ -284,7 +295,6 @@
     return div;
   }
 
-  // Обновить UI: показать play или паузу
   function updateUI(playing) {
     if (playing) {
       playIcon.style.display = 'none';
@@ -301,13 +311,11 @@
     }
   }
 
-  // По окончании трека возвращаем кнопку play
   audio.addEventListener('ended', () => {
     isPlaying = false;
     updateUI(false);
   });
 
-  // Переключение play/pause
   function togglePlay() {
     if (isPlaying) {
       audio.pause();
@@ -319,8 +327,6 @@
   }
 
   playPauseBtn.addEventListener('click', togglePlay);
-  
-  // Предзагрузка
   audio.preload = 'metadata';
 </script>
 </body>
