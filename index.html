@@ -21,32 +21,16 @@
       font-family: 'SB Sans Display', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     }
 
-    /* Карточка ровно как в макете: 360px ширина, фон #202020 */
+    /* Карточка 360px, фон #202020 */
     .player-card {
       width: 360px;
       max-width: 100%;
       background: #202020;
-      border-radius: 0; /* в макете без скругления, но можно добавить лёгкое */
       position: relative;
-      padding: 0;
       box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.5);
       overflow: hidden;
     }
 
-    /* Акцентный круг (из макета) */
-    .accent-circle {
-      width: 148px;
-      height: 148px;
-      background: #04C9B0;
-      position: absolute;
-      left: 106px;
-      top: 93px;
-      border-radius: 50%;
-      opacity: 0.8;
-      pointer-events: none;
-    }
-
-    /* Основной контент с относительным позиционированием (поверх круга) */
     .content {
       position: relative;
       z-index: 2;
@@ -55,7 +39,7 @@
       flex-direction: column;
     }
 
-    /* Верхняя строка: логотип слева, 0rub.svg справа */
+    /* Верхняя строка: logo.svg слева, 0rub.svg справа */
     .top-row {
       display: flex;
       justify-content: space-between;
@@ -75,25 +59,49 @@
       display: block;
     }
 
-    /* Центральная иконка b2b */
-    .center-icon {
+    /* Центральный блок с подложкой shape.svg и иконкой b2b */
+    .center-block {
+      position: relative;
       display: flex;
       justify-content: center;
+      align-items: center;
       margin: 20px 0 32px;
+      min-height: 148px; /* под размер shape */
     }
 
-    .center-icon img {
+    .shape-bg {
+      position: absolute;
+      width: 148px;
+      height: 148px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .shape-bg img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .b2b-icon {
+      position: relative;
+      z-index: 2;
+    }
+
+    .b2b-icon img {
       width: 80px;
       height: auto;
       display: block;
     }
 
-    /* Блок текст + иконка play */
+    /* Блок текст + кнопка play */
     .play-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 32px;
     }
 
     .demo-text {
@@ -132,7 +140,7 @@
       display: block;
     }
 
-    /* Кастомная пауза (две полоски, как в прежнем варианте) */
+    /* Кастомная пауза (белый круг с двумя полосками) */
     .pause-custom {
       width: 48px;
       height: 48px;
@@ -152,46 +160,7 @@
       border-radius: 2px;
     }
 
-    /* Прогресс-бар и время (сохранённый функционал) */
-    .player-progress {
-      margin: 8px 0 24px;
-    }
-
-    .time-row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 6px;
-      font-size: 12px;
-      color: #b0b0b0;
-      font-weight: 500;
-    }
-
-    input[type="range"] {
-      width: 100%;
-      height: 4px;
-      -webkit-appearance: none;
-      background: #3a3a3a;
-      border-radius: 4px;
-      outline: none;
-      cursor: pointer;
-    }
-
-    input[type="range"]:focus {
-      outline: none;
-    }
-
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 14px;
-      height: 14px;
-      background: #00B39B;
-      border-radius: 50%;
-      cursor: pointer;
-      border: none;
-      box-shadow: none;
-    }
-
-    /* Кнопка регистрации — как в макете */
+    /* Кнопка регистрации */
     .register-btn-wrap {
       display: flex;
       justify-content: center;
@@ -223,7 +192,6 @@
       transform: translateY(1px);
     }
 
-    /* Адаптация для совсем маленьких экранов */
     @media (max-width: 380px) {
       .content {
         padding: 20px 16px 28px;
@@ -241,9 +209,6 @@
 </head>
 <body>
 <div class="player-card">
-  <!-- Декоративный круг из макета -->
-  <div class="accent-circle"></div>
-
   <div class="content">
     <!-- Верхняя строка: logo.svg и 0rub.svg -->
     <div class="top-row">
@@ -255,9 +220,14 @@
       </div>
     </div>
 
-    <!-- Центральная иконка icon b2b.svg -->
-    <div class="center-icon">
-      <img src="icon b2b.svg" alt="B2B" onerror="this.onerror=null; this.style.display='none'">
+    <!-- Центральный блок: shape.svg как подложка, сверху icon b2b.svg -->
+    <div class="center-block">
+      <div class="shape-bg">
+        <img src="shape.svg" alt="shape" onerror="this.onerror=null; this.style.display='none'">
+      </div>
+      <div class="b2b-icon">
+        <img src="icon b2b.svg" alt="B2B" onerror="this.onerror=null; this.style.display='none'">
+      </div>
     </div>
 
     <!-- Блок текста и кнопка play -->
@@ -268,15 +238,6 @@
       <button class="play-icon-btn" id="playPauseBtn">
         <img src="icon_play_48x48.svg" alt="Play" class="play-icon-img" id="playIcon">
       </button>
-    </div>
-
-    <!-- Прогресс-бар с временем (сохранённый функционал) -->
-    <div class="player-progress">
-      <div class="time-row">
-        <span id="currentTime">0:00</span>
-        <span id="duration">0:00</span>
-      </div>
-      <input type="range" id="progressBar" value="0" step="0.01">
     </div>
 
     <!-- Кнопка регистрации -->
@@ -293,22 +254,11 @@
   const audio = new Audio('https://okidsgn-max.github.io/mailplayer/pst.mp3');
   const playPauseBtn = document.getElementById('playPauseBtn');
   const playIcon = document.getElementById('playIcon');
-  const currentTimeSpan = document.getElementById('currentTime');
-  const durationSpan = document.getElementById('duration');
-  const progressBar = document.getElementById('progressBar');
-
+  
   let isPlaying = false;
   let pauseElement = null;
 
-  // Форматирование времени MM:SS
-  function formatTime(seconds) {
-    if (isNaN(seconds)) return '0:00';
-    const mins = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    return `${mins}:${secs < 10 ? '0' + secs : secs}`;
-  }
-
-  // Создать кастомную иконку паузы (как в предыдущем варианте)
+  // Создать кастомную иконку паузы (белый круг с двумя полосками)
   function createPauseIcon() {
     const div = document.createElement('div');
     div.className = 'pause-custom';
@@ -319,7 +269,6 @@
   // Обновить UI: показать play или паузу
   function updateUI(playing) {
     if (playing) {
-      // Прячем img с play, показываем паузу
       playIcon.style.display = 'none';
       if (!pauseElement) {
         pauseElement = createPauseIcon();
@@ -334,24 +283,10 @@
     }
   }
 
-  // Загрузка метаданных (длительность)
-  audio.addEventListener('loadedmetadata', () => {
-    durationSpan.textContent = formatTime(audio.duration);
-    progressBar.max = audio.duration;
-  });
-
-  // Обновление времени и ползунка
-  audio.addEventListener('timeupdate', () => {
-    currentTimeSpan.textContent = formatTime(audio.currentTime);
-    progressBar.value = audio.currentTime;
-  });
-
-  // По окончании трека
+  // По окончании трека возвращаем кнопку play
   audio.addEventListener('ended', () => {
     isPlaying = false;
     updateUI(false);
-    progressBar.value = 0;
-    currentTimeSpan.textContent = formatTime(0);
   });
 
   // Переключение play/pause
@@ -366,15 +301,8 @@
   }
 
   playPauseBtn.addEventListener('click', togglePlay);
-
-  // Перемотка по прогресс-бару
-  progressBar.addEventListener('input', (e) => {
-    const newTime = parseFloat(e.target.value);
-    audio.currentTime = newTime;
-    currentTimeSpan.textContent = formatTime(newTime);
-  });
-
-  // Предзагрузка метаданных
+  
+  // Предзагрузка
   audio.preload = 'metadata';
 </script>
 </body>
