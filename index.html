@@ -21,7 +21,7 @@
       padding: 24px;
     }
 
-    /* Карточка плеера — тёмная, с лёгким свечением (как на okidsgn, но с акцентами zvuk-b2b) */
+    /* Тёмная карточка */
     .player-card {
       max-width: 560px;
       width: 100%;
@@ -31,70 +31,133 @@
       border-radius: 40px;
       border: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.5);
-      padding: 36px 32px 44px;
-      transition: all 0.2s ease;
+      padding: 32px 28px 40px;
     }
 
-    /* Логотип */
+    /* Логотип — справа, меньше */
     .logo {
       display: flex;
-      justify-content: center;
-      margin-bottom: 32px;
+      justify-content: flex-end;
+      margin-bottom: 28px;
     }
 
     .logo img {
-      max-width: 200px;
+      max-width: 110px;
       width: 100%;
       height: auto;
       display: block;
-      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+      filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
     }
 
-    /* Обёртка плеера */
-    .audio-wrapper {
-      margin-bottom: 36px;
+    /* Кастомный плеер */
+    .custom-player {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 60px;
+      padding: 16px 20px;
+      margin-bottom: 32px;
     }
 
-    audio {
-      width: 100%;
+    /* Верхняя панель: кнопка play и время */
+    .player-controls {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 12px;
+    }
+
+    /* Кнопка Play / Pause */
+    .play-pause-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.1s ease;
+    }
+
+    .play-pause-btn:hover {
+      transform: scale(1.02);
+    }
+
+    .play-pause-btn:active {
+      transform: scale(0.98);
+    }
+
+    /* Изображение play */
+    .play-icon {
+      width: 36px;
+      height: 36px;
       display: block;
-      outline: none;
-      border-radius: 56px;
     }
 
-    /* Кастомизация нативного плеера под стиль zvuk-b2b (акцент — бирюзовый) */
-    audio::-webkit-media-controls-panel {
-      background-color: rgba(26, 35, 50, 0.9);
-      border-radius: 56px;
+    /* Стиль для паузы (простой символ без свечения) */
+    .pause-icon {
+      width: 36px;
+      height: 36px;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    audio::-webkit-media-controls-play-button {
-      background-color: #00b399;
-      border-radius: 50%;
-      transition: 0.1s;
+    .pause-icon span {
+      display: inline-block;
+      width: 8px;
+      height: 24px;
+      background-color: #cbd5e1; /* светло-серый */
+      margin: 0 3px;
+      border-radius: 2px;
     }
 
-    audio::-webkit-media-controls-play-button:hover {
-      background-color: #008a70;
-    }
-
-    audio::-webkit-media-controls-current-time-display,
-    audio::-webkit-media-controls-time-remaining-display {
-      color: #e2e8f0;
+    /* Время (светло-серое, без свечения) */
+    .time-display {
+      font-size: 1rem;
       font-weight: 500;
+      color: #cbd5e1; /* светло-серый */
+      letter-spacing: 0.3px;
+      background: none;
+      text-shadow: none;
     }
 
-    audio::-webkit-media-controls-timeline {
-      background-color: #334155;
-      border-radius: 3px;
+    /* Прогресс-бар */
+    .progress-container {
+      width: 100%;
+      margin-top: 6px;
     }
 
-    audio::-webkit-media-controls-volume-slider {
-      background-color: #334155;
-      border-radius: 3px;
+    input[type="range"] {
+      width: 100%;
+      height: 4px;
+      -webkit-appearance: none;
+      background: #334155;
+      border-radius: 4px;
+      outline: none;
+      cursor: pointer;
     }
 
-    /* Кнопка регистрации — чистый стиль zvuk-b2b.com (без иконки) */
+    input[type="range"]:focus {
+      outline: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      background: #00b399;
+      border-radius: 50%;
+      cursor: pointer;
+      border: none;
+      box-shadow: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      background: #008a70;
+    }
+
+    /* Кнопка регистрации (Zvuk B2B стиль) */
     .register-link {
       display: flex;
       justify-content: center;
@@ -123,7 +186,6 @@
       text-align: center;
     }
 
-    /* Эффекты при наведении — как на zvuk-b2b */
     .register-btn:hover {
       background-color: #008a70;
       transform: translateY(-1px);
@@ -132,16 +194,8 @@
 
     .register-btn:active {
       transform: translateY(1px);
-      box-shadow: none;
     }
 
-    /* Фокус для доступности */
-    .register-btn:focus-visible {
-      outline: 2px solid #00b399;
-      outline-offset: 2px;
-    }
-
-    /* Маленький текст под кнопкой */
     .helper {
       text-align: center;
       margin-top: 28px;
@@ -149,47 +203,149 @@
       color: #94a3b8;
     }
 
-    /* Адаптация под мобильные */
     @media (max-width: 480px) {
       .player-card {
-        padding: 28px 20px 36px;
+        padding: 24px 20px 32px;
         border-radius: 32px;
+      }
+      .logo img {
+        max-width: 90px;
+      }
+      .play-pause-btn {
+        width: 40px;
+        height: 40px;
+      }
+      .play-icon {
+        width: 30px;
+        height: 30px;
+      }
+      .pause-icon span {
+        width: 6px;
+        height: 20px;
+      }
+      .time-display {
+        font-size: 0.85rem;
       }
       .register-btn {
         padding: 14px 24px;
         font-size: 0.9rem;
         max-width: 100%;
       }
-      .logo img {
-        max-width: 150px;
-      }
     }
   </style>
 </head>
 <body>
-  <div class="player-card">
-    <!-- Логотип из корня папки -->
-    <div class="logo">
-      <img src="logo.svg" alt="Zvuk B2B" onerror="this.onerror=null; this.src='https://placehold.co/200x80/1e293b/white?text=LOGO';">
-    </div>
+<div class="player-card">
+  <!-- Логотип справа, маленький -->
+  <div class="logo">
+    <img src="logo.svg" alt="Zvuk B2B" onerror="this.onerror=null; this.src='https://placehold.co/110x40/1e293b/white?text=LOGO';">
+  </div>
 
-    <!-- Аудиоплеер -->
-    <div class="audio-wrapper">
-      <audio controls preload="metadata">
-        <source src="https://okidsgn-max.github.io/mailplayer/pst.mp3" type="audio/mpeg">
-        Ваш браузер не поддерживает встроенное аудио.
-      </audio>
+  <!-- Кастомный плеер (без скачивания, ускорения) -->
+  <div class="custom-player">
+    <div class="player-controls">
+      <!-- Кнопка play/pause с иконкой Icon_play_36x36.svg -->
+      <button class="play-pause-btn" id="playPauseBtn">
+        <img src="Icon_play_36x36.svg" alt="Play" class="play-icon" id="playIcon">
+      </button>
+      <div class="time-display">
+        <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+      </div>
     </div>
-
-    <!-- Кнопка регистрации без иконки, чистый стиль zvuk-b2b -->
-    <div class="register-link">
-      <a href="https://app.zvuk-b2b.com/register?roistat_visit=5641964" class="register-btn" target="_blank" rel="noopener noreferrer">
-        Присоединиться
-      </a>
-    </div>
-    <div class="helper">
-      Нажмите, чтобы зарегистрироваться
+    <div class="progress-container">
+      <input type="range" id="progressBar" value="0" step="0.01">
     </div>
   </div>
+
+  <!-- Кнопка регистрации (без иконки) -->
+  <div class="register-link">
+    <a href="https://app.zvuk-b2b.com/register?roistat_visit=5641964" class="register-btn" target="_blank" rel="noopener noreferrer">
+      Присоединиться
+    </a>
+  </div>
+  <div class="helper">
+    Нажмите, чтобы зарегистрироваться
+  </div>
+</div>
+
+<script>
+  // Получаем элементы
+  const audio = new Audio('https://okidsgn-max.github.io/mailplayer/pst.mp3');
+  const playPauseBtn = document.getElementById('playPauseBtn');
+  const playIcon = document.getElementById('playIcon');
+  const currentTimeSpan = document.getElementById('currentTime');
+  const durationSpan = document.getElementById('duration');
+  const progressBar = document.getElementById('progressBar');
+
+  // Флаг воспроизведения
+  let isPlaying = false;
+
+  // Функция форматирования времени (MM:SS)
+  function formatTime(seconds) {
+    if (isNaN(seconds)) return '0:00';
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs < 10 ? '0' + secs : secs}`;
+  }
+
+  // Загрузка метаданных (длительность)
+  audio.addEventListener('loadedmetadata', () => {
+    durationSpan.textContent = formatTime(audio.duration);
+    progressBar.max = audio.duration;
+  });
+
+  // Обновление времени и прогресса
+  audio.addEventListener('timeupdate', () => {
+    currentTimeSpan.textContent = formatTime(audio.currentTime);
+    progressBar.value = audio.currentTime;
+  });
+
+  // Переключение play/pause
+  function togglePlay() {
+    if (isPlaying) {
+      audio.pause();
+      // Заменяем иконку паузы на play (снова Icon_play_36x36.svg)
+      playIcon.src = 'Icon_play_36x36.svg';
+      playIcon.style.display = 'block';
+      // Убираем паузу, если она была вставлена как HTML
+      const pauseDiv = playPauseBtn.querySelector('.pause-icon');
+      if (pauseDiv) pauseDiv.remove();
+    } else {
+      audio.play();
+      // Создаём элемент паузы (простой, без свечения)
+      // Удаляем старый playIcon, вставляем блок паузы
+      playIcon.style.display = 'none';
+      const pauseDiv = document.createElement('div');
+      pauseDiv.className = 'pause-icon';
+      pauseDiv.innerHTML = '<span></span><span></span>';
+      playPauseBtn.appendChild(pauseDiv);
+    }
+    isPlaying = !isPlaying;
+  }
+
+  // Обработчик кнопки
+  playPauseBtn.addEventListener('click', togglePlay);
+
+  // Обработчик окончания трека
+  audio.addEventListener('ended', () => {
+    isPlaying = false;
+    playIcon.src = 'Icon_play_36x36.svg';
+    playIcon.style.display = 'block';
+    const pauseDiv = playPauseBtn.querySelector('.pause-icon');
+    if (pauseDiv) pauseDiv.remove();
+    progressBar.value = 0;
+    currentTimeSpan.textContent = formatTime(0);
+  });
+
+  // Перемотка через ползунок
+  progressBar.addEventListener('input', (e) => {
+    const newTime = parseFloat(e.target.value);
+    audio.currentTime = newTime;
+    currentTimeSpan.textContent = formatTime(newTime);
+  });
+
+  // Предзагрузка файла (необязательно)
+  audio.preload = 'metadata';
+</script>
 </body>
 </html>
