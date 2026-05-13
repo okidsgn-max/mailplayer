@@ -29,6 +29,7 @@
       position: relative;
       box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.5);
       overflow: hidden;
+      border-radius: 0; /* как в макете */
     }
 
     .content {
@@ -59,44 +60,54 @@
       display: block;
     }
 
-    /* Центральный блок с подложкой shape.svg и иконкой b2b */
+    /* Центральный блок: подложка с анимированным градиентом и иконка b2b */
     .center-block {
       position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 20px 0 32px;
-      min-height: 148px; /* под размер shape */
+      margin: 20px 0 40px; /* увеличил нижний отступ, чтобы текст и кнопка были ниже */
+      min-height: 160px;
     }
 
-    .shape-bg {
+    /* Анимированная подложка (круг с градиентом) */
+    .animated-shape {
       position: absolute;
       width: 148px;
       height: 148px;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: linear-gradient(135deg, #26C09C, #1a8f72, #26C09C, #3cd6b0);
+      background-size: 300% 300%;
+      animation: gradientMove 6s ease infinite;
+      box-shadow: 0 0 15px rgba(38, 192, 156, 0.3);
       pointer-events: none;
     }
 
-    .shape-bg img {
-      width: 100%;
-      height: 100%;
-      display: block;
+    @keyframes gradientMove {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
     }
 
+    /* Увеличенная иконка b2b */
     .b2b-icon {
       position: relative;
       z-index: 2;
     }
 
     .b2b-icon img {
-      width: 80px;
+      width: 110px; /* была 80px — сделал больше */
       height: auto;
       display: block;
     }
 
-    /* Блок текст + кнопка play */
+    /* Блок текст + кнопка play (сдвинут ниже за счёт margin у center-block) */
     .play-row {
       display: flex;
       justify-content: space-between;
@@ -113,6 +124,7 @@
       max-width: 210px;
     }
 
+    /* Кнопка play — сделаем видимой и кликабельной */
     .play-icon-btn {
       background: none;
       border: none;
@@ -124,6 +136,7 @@
       align-items: center;
       justify-content: center;
       transition: transform 0.1s;
+      z-index: 10;
     }
 
     .play-icon-btn:hover {
@@ -200,6 +213,13 @@
         font-size: 14px;
         max-width: 180px;
       }
+      .b2b-icon img {
+        width: 90px;
+      }
+      .animated-shape {
+        width: 130px;
+        height: 130px;
+      }
       .register-btn {
         font-size: 14px;
         padding: 10px 20px;
@@ -220,17 +240,15 @@
       </div>
     </div>
 
-    <!-- Центральный блок: shape.svg как подложка, сверху icon b2b.svg -->
+    <!-- Центральный блок: подложка с анимированным градиентом (заменяет shape.svg) + увеличенная иконка b2b -->
     <div class="center-block">
-      <div class="shape-bg">
-        <img src="shape.svg" alt="shape" onerror="this.onerror=null; this.style.display='none'">
-      </div>
+      <div class="animated-shape"></div>
       <div class="b2b-icon">
         <img src="icon b2b.svg" alt="B2B" onerror="this.onerror=null; this.style.display='none'">
       </div>
     </div>
 
-    <!-- Блок текста и кнопка play -->
+    <!-- Блок текста и кнопка play (теперь ниже) -->
     <div class="play-row">
       <div class="demo-text">
         Демо-версия плейлиста<br>для вашего бизнеса
