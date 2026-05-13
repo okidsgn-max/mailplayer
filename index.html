@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Аудио плеер | Звук B2B</title>
+  <title>Аудио плеер | Звук Бизнес</title>
   <style>
-    /* Сброс стилей и база */
+    /* ***** БАЗОВЫЕ СТИЛИ И ШРИФТЫ (как на zvuk-b2b.com) ***** */
     * {
       margin: 0;
       padding: 0;
@@ -13,8 +13,9 @@
     }
 
     body {
+      /* Используем системный шрифт, так как точный шрифт сайта — SBSansDisplay — может быть недоступен */
       font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, sans-serif;
-      background: radial-gradient(circle at 10% 20%, rgb(15, 25, 45), rgb(5, 10, 20));
+      background: linear-gradient(135deg, #F8F8F8 0%, #EEF0F2 100%);
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -22,126 +23,149 @@
       padding: 24px;
     }
 
-    /* Карточка плеера — адаптивная, с эффектом "стекла" */
+    /* КАРТОЧКА ПЛЕЕРА — светлая, с современными тенями */
     .player-card {
       max-width: 560px;
       width: 100%;
-      margin: 0 auto;
-      background: rgba(20, 28, 40, 0.65);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 56px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3), 0 0 0 0.5px rgba(255, 255, 255, 0.1);
-      padding: 32px 28px 40px;
+      background: #FFFFFF;
+      border-radius: 32px;
+      /* Эффект «стекла» убран, сделан упор на чистоту и лёгкость */
+      box-shadow: 0 20px 35px -8px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.02);
+      padding: 40px 32px 44px;
       transition: all 0.3s ease;
     }
 
-    /* Логотип */
+    /* ЛОГОТИП */
     .logo {
       display: flex;
       justify-content: center;
-      margin-bottom: 28px;
+      margin-bottom: 32px;
     }
 
     .logo img {
-      max-width: 180px;
+      max-width: 200px;
       width: 100%;
       height: auto;
       display: block;
-      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.2));
     }
 
-    /* Стили для самого плеера — нативный, но аккуратно вписанный */
+    /* ОБЁРТКА ПЛЕЕРА — минималистичная */
     .audio-wrapper {
-      background: rgba(0, 0, 0, 0.35);
-      border-radius: 80px;
-      padding: 12px 18px;
       margin-bottom: 32px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
+    /* СТИЛИ ДЛЯ НАТИВНОГО АУДИОПЛЕЕРА */
     audio {
       width: 100%;
       display: block;
       outline: none;
-      border-radius: 60px;
     }
 
-    /* Кастомизация нативного плеера WebKit (Chrome, Safari) */
+    /* КАСТОМИЗАЦИЯ ПЛЕЕРА ДЛЯ WEBKIT (CHROME, SAFARI) */
     audio::-webkit-media-controls-panel {
-      background: rgba(30, 35, 50, 0.9);
-      border-radius: 60px;
+      background-color: #F4F5F7;
+      border-radius: 20px;
     }
 
     audio::-webkit-media-controls-play-button {
-      background-color: #ffffff;
+      background-color: #00b399; /* Фирменный цвет кнопки Play */
       border-radius: 50%;
+    }
+
+    audio::-webkit-media-controls-play-button:hover {
+      background-color: #008a70; /* Затемнение при наведении */
     }
 
     audio::-webkit-media-controls-current-time-display,
     audio::-webkit-media-controls-time-remaining-display {
-      color: #f0f0f0;
+      color: #1F2A3A;
       font-weight: 500;
     }
 
-    /* Кнопка регистрации — в стиле сайта */
+    /* Это важно: цвет слайдера (ползунка) */
+    audio::-webkit-media-controls-timeline {
+      background-color: #E1E4E8;
+      border-radius: 4px;
+    }
+    
+    audio::-webkit-media-controls-volume-slider {
+      background-color: #E1E4E8;
+      border-radius: 4px;
+    }
+
+    /* СТИЛЬ КНОПКИ (ГЛАВНЫЙ ЭЛЕМЕНТ) — ПОЛНОСТЬЮ ПЕРЕРАБОТАН ПОД САЙТ */
     .register-link {
       display: block;
       text-align: center;
-      margin-top: 20px;
+      margin-top: 8px;
     }
 
     .register-btn {
+      /* Основа кнопки — полностью скопирована стилистика с сайта zvuk-b2b.com */
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 12px;
-      background: linear-gradient(105deg, #FFB347 0%, #FF8C1A 100%);
-      padding: 14px 28px;
-      border-radius: 60px;
-      font-size: 1.1rem;
+      
+      /* Цвет фона и тени — как на сайте */
+      background-color: #00b399;         /* Основной цвет бренда */
+      box-shadow: none;
+      
+      padding: 16px 32px;
+      border-radius: 60px;               /* Сильно скруглённая, современная кнопка */
+      
+      font-family: inherit;
+      font-size: 1.05rem;
       font-weight: 600;
+      line-height: 1.2;
       letter-spacing: 0.3px;
-      color: #1A1E2C;
+      color: #FFFFFF;
       text-decoration: none;
-      transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      
+      transition: all 0.2s ease;
       width: 100%;
       max-width: 320px;
-      backdrop-filter: blur(4px);
-      border: none;
-      font-family: inherit;
+      border: none;                      /* Убираем рамку */
+      cursor: pointer;
     }
 
+    /* Эффект при наведении (как на сайте) */
     .register-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-      background: linear-gradient(105deg, #FFC15E 0%, #FFA032 100%);
+      background-color: #008a70;          /* Более тёмный оттенок при ховере */
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.15);
     }
-
+    
+    /* Эффект при нажатии */
     .register-btn:active {
-      transform: translateY(2px);
+      transform: translateY(1px);
+      box-shadow: none;
     }
 
-    /* подсказка для мобильных устройств */
+    /* Дополнительный стиль для фокуса (a11y) */
+    .register-btn:focus-visible {
+      outline: 2px solid #00b399;
+      outline-offset: 2px;
+    }
+
+    /* НЕБОЛЬШОЙ ТЕКСТ-ПОДСКАЗКА */
     .helper {
       text-align: center;
       margin-top: 28px;
       font-size: 0.75rem;
-      color: rgba(255, 255, 255, 0.55);
-      letter-spacing: 0.3px;
+      color: #6C7A8E;
+      letter-spacing: 0.2px;
     }
 
-    /* адаптивность */
+    /* АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ */
     @media (max-width: 480px) {
       .player-card {
-        padding: 24px 20px 32px;
-        border-radius: 44px;
+        padding: 28px 20px 32px;
+        border-radius: 28px;
       }
       .register-btn {
-        padding: 12px 22px;
-        font-size: 1rem;
+        padding: 14px 24px;
+        font-size: 0.95rem;
       }
       .logo img {
         max-width: 150px;
@@ -151,12 +175,12 @@
 </head>
 <body>
   <div class="player-card">
-    <!-- Логотип из корня папки (logo.svg) -->
+    <!-- ЛОГОТИП из корня папки -->
     <div class="logo">
-      <img src="logo.svg" alt="Логотип Zvuk B2B" onerror="this.onerror=null; this.src='https://placehold.co/200x80/1e293b/white?text=Logo';">
+      <img src="logo.svg" alt="Звук Бизнес" onerror="this.onerror=null; this.src='https://placehold.co/200x80/1e293b/white?text=LOGO';">
     </div>
 
-    <!-- Аудиоплеер с ссылкой на музыку -->
+    <!-- АУДИОПЛЕЕР с вашим треком -->
     <div class="audio-wrapper">
       <audio controls preload="metadata">
         <source src="https://okidsgn-max.github.io/mailplayer/pst.mp3" type="audio/mpeg">
@@ -164,14 +188,14 @@
       </audio>
     </div>
 
-    <!-- Кнопка регистрации -->
+    <!-- ОБНОВЛЁННАЯ КНОПКА РЕГИСТРАЦИИ (стиль Zvuk B2B) -->
     <div class="register-link">
       <a href="https://app.zvuk-b2b.com/register?roistat_visit=5641964" class="register-btn" target="_blank" rel="noopener noreferrer">
         🎧 Присоединиться
       </a>
     </div>
     <div class="helper">
-      Нажмите на кнопку — начните использовать платформу
+      Нажмите, чтобы начать работать с платформой
     </div>
   </div>
 </body>
