@@ -1,4 +1,178 @@
-<audio controls>
-  <source src="https://okidsgn-max.github.io/mailplayer/pst.mp3" type="audio/mpeg">
-  Ваш браузер не поддерживает аудиоплеер.
-</audio>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Аудио плеер | Звук B2B</title>
+  <style>
+    /* Сброс стилей и база */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, sans-serif;
+      background: radial-gradient(circle at 10% 20%, rgb(15, 25, 45), rgb(5, 10, 20));
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
+
+    /* Карточка плеера — адаптивная, с эффектом "стекла" */
+    .player-card {
+      max-width: 560px;
+      width: 100%;
+      margin: 0 auto;
+      background: rgba(20, 28, 40, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 56px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3), 0 0 0 0.5px rgba(255, 255, 255, 0.1);
+      padding: 32px 28px 40px;
+      transition: all 0.3s ease;
+    }
+
+    /* Логотип */
+    .logo {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+
+    .logo img {
+      max-width: 180px;
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.2));
+    }
+
+    /* Стили для самого плеера — нативный, но аккуратно вписанный */
+    .audio-wrapper {
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 80px;
+      padding: 12px 18px;
+      margin-bottom: 32px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    audio {
+      width: 100%;
+      display: block;
+      outline: none;
+      border-radius: 60px;
+    }
+
+    /* Кастомизация нативного плеера WebKit (Chrome, Safari) */
+    audio::-webkit-media-controls-panel {
+      background: rgba(30, 35, 50, 0.9);
+      border-radius: 60px;
+    }
+
+    audio::-webkit-media-controls-play-button {
+      background-color: #ffffff;
+      border-radius: 50%;
+    }
+
+    audio::-webkit-media-controls-current-time-display,
+    audio::-webkit-media-controls-time-remaining-display {
+      color: #f0f0f0;
+      font-weight: 500;
+    }
+
+    /* Кнопка регистрации — в стиле сайта */
+    .register-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .register-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: linear-gradient(105deg, #FFB347 0%, #FF8C1A 100%);
+      padding: 14px 28px;
+      border-radius: 60px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      color: #1A1E2C;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      width: 100%;
+      max-width: 320px;
+      backdrop-filter: blur(4px);
+      border: none;
+      font-family: inherit;
+    }
+
+    .register-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      background: linear-gradient(105deg, #FFC15E 0%, #FFA032 100%);
+    }
+
+    .register-btn:active {
+      transform: translateY(2px);
+    }
+
+    /* подсказка для мобильных устройств */
+    .helper {
+      text-align: center;
+      margin-top: 28px;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.55);
+      letter-spacing: 0.3px;
+    }
+
+    /* адаптивность */
+    @media (max-width: 480px) {
+      .player-card {
+        padding: 24px 20px 32px;
+        border-radius: 44px;
+      }
+      .register-btn {
+        padding: 12px 22px;
+        font-size: 1rem;
+      }
+      .logo img {
+        max-width: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="player-card">
+    <!-- Логотип из корня папки (logo.svg) -->
+    <div class="logo">
+      <img src="logo.svg" alt="Логотип Zvuk B2B" onerror="this.onerror=null; this.src='https://placehold.co/200x80/1e293b/white?text=Logo';">
+    </div>
+
+    <!-- Аудиоплеер с ссылкой на музыку -->
+    <div class="audio-wrapper">
+      <audio controls preload="metadata">
+        <source src="https://okidsgn-max.github.io/mailplayer/pst.mp3" type="audio/mpeg">
+        Ваш браузер не поддерживает встроенное аудио.
+      </audio>
+    </div>
+
+    <!-- Кнопка регистрации -->
+    <div class="register-link">
+      <a href="https://app.zvuk-b2b.com/register?roistat_visit=5641964" class="register-btn" target="_blank" rel="noopener noreferrer">
+        🎧 Присоединиться
+      </a>
+    </div>
+    <div class="helper">
+      Нажмите на кнопку — начните использовать платформу
+    </div>
+  </div>
+</body>
+</html>
